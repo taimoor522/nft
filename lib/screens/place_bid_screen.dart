@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:glassmorphism/glassmorphism.dart';
-import 'package:nft/Screens/home_screen.dart';
 import 'package:nft/constants.dart';
 import 'package:nft/models.dart';
+
+import '../widgets/slide_to_continue.dart';
 
 class PlaceBidScreen extends StatefulWidget {
   final NFT nft;
@@ -16,11 +17,12 @@ class _PlaceBidScreenState extends State<PlaceBidScreen> with SingleTickerProvid
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      Future.delayed(const Duration(seconds: 1), () {
-        showModal(context);
-      });
-    });
+    WidgetsBinding.instance.addPostFrameCallback(
+      (_) => Future.delayed(
+        const Duration(seconds: 1),
+        () => showModal(context),
+      ),
+    );
   }
 
   @override
@@ -42,7 +44,7 @@ class _PlaceBidScreenState extends State<PlaceBidScreen> with SingleTickerProvid
           child: Scaffold(
             appBar: AppBar(
               toolbarHeight: 90,
-              backgroundColor: Colors.transparent,
+              backgroundColor: kTransparent,
               leading: GestureDetector(
                 onTap: () => Navigator.pop(context),
                 child: Container(
@@ -59,7 +61,7 @@ class _PlaceBidScreenState extends State<PlaceBidScreen> with SingleTickerProvid
                   width: 60,
                   decoration: BoxDecoration(
                     border: Border.all(color: kWhiteColor, width: 2),
-                    borderRadius: BorderRadius.circular(100),
+                    borderRadius: radius100,
                     image: const DecorationImage(
                       image: AssetImage('assets/profile.png'),
                       fit: BoxFit.cover,
@@ -77,8 +79,8 @@ class _PlaceBidScreenState extends State<PlaceBidScreen> with SingleTickerProvid
 
   void showModal(BuildContext context) {
     showModalBottomSheet(
-      backgroundColor: Colors.transparent,
-      barrierColor: Colors.transparent,
+      backgroundColor: kTransparent,
+      barrierColor: kTransparent,
       enableDrag: false,
       transitionAnimationController: AnimationController(
         vsync: this,
@@ -102,28 +104,15 @@ class _PlaceBidScreenState extends State<PlaceBidScreen> with SingleTickerProvid
               blur: 10,
               alignment: Alignment.bottomCenter,
               border: 0,
-              linearGradient: LinearGradient(
-                begin: Alignment.topLeft,
-                end: Alignment.bottomRight,
-                colors: [kWhiteColor.withOpacity(0.1), kWhiteColor.withAlpha(45)],
-                stops: const [0.3, 1],
-              ),
-              borderGradient: const LinearGradient(
-                  begin: Alignment.bottomRight,
-                  end: Alignment.topLeft,
-                  colors: [kWhiteColor, kWhiteColor],
-                  stops: [0.06, 0.95]),
+              linearGradient: linearGradient,
+              borderGradient: borderLinearGradient,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   const Spacer(),
                   Text(
                     '${widget.nft.price.toString().padRight(4, '0')} ETH',
-                    style: const TextStyle(
-                      fontSize: 30,
-                      color: kWhiteColor,
-                      fontWeight: FontWeight.bold,
-                    ),
+                    style: bigTextStyle,
                   ),
                   const SizedBox(height: 10),
                   SlideToContinue(

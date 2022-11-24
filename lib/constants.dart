@@ -1,20 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:nft/screens/nft_screen.dart';
+import 'package:nft/screens/place_bid_screen.dart';
 
+import 'Screens/explore_screen.dart';
 import 'models.dart';
 
 // colors
-
 const kPinkColor = Color(0xFFF4B7A8);
 const kWhiteColor = Color(0xFFFFFFFF);
 const kBlackColor = Color(0xFF000000);
+const kTransparent = Colors.transparent;
 
 // string
-
-const home_discription_text =
+const homeDiscriptionText =
     'Explore the top collection of NFTs and buy and sell your NFTs as well.';
+const price = 'assets/price.png';
 
 // data source
-
 const List<NFTCollection> nftCollection = [
   NFTCollection(
     name: 'Hyperbeast',
@@ -268,3 +270,73 @@ const List<NFTCollection> nftCollection = [
     floorPrice: 0.34,
   ),
 ];
+
+// functions
+void pushExploreScreen(BuildContext context) {
+  Navigator.push(context, MaterialPageRoute(builder: (context) => const ExploreScreen()));
+}
+
+void pushBidScreen(BuildContext context, NFT nft) {
+  Navigator.push(
+    context,
+    PageRouteBuilder(
+      pageBuilder: (context, animation, secondaryAnimation) => PlaceBidScreen(nft: nft),
+      transitionDuration: const Duration(seconds: 1),
+      transitionsBuilder: (context, animation, secondaryAnimation, child) {
+        return FadeTransition(
+          opacity: animation,
+          child: child,
+        );
+      },
+    ),
+  );
+}
+
+void pushNFTScreen(BuildContext context, NFTCollection collection) {
+  Navigator.push(
+    context,
+    PageRouteBuilder(
+      transitionDuration: const Duration(seconds: 1),
+      transitionsBuilder: (context, animation, secondaryAnimation, child) {
+        animation = CurvedAnimation(parent: animation, curve: Curves.easeInOut);
+        return FadeTransition(
+          opacity: animation,
+          child: child,
+        );
+      },
+      pageBuilder: (_, __, ___) => NFTScreen(
+        collection: collection,
+      ),
+    ),
+  );
+}
+
+// styles
+const bigTextStyle = TextStyle(
+  fontSize: 35,
+  color: kWhiteColor,
+  fontWeight: FontWeight.bold,
+);
+const mediumTextStyle = TextStyle(
+  fontSize: 20,
+  color: kWhiteColor,
+  fontWeight: FontWeight.bold,
+);
+const smallTextStyle = TextStyle(fontSize: 14, color: kWhiteColor);
+final roundWhite = BoxDecoration(
+  color: kWhiteColor,
+  borderRadius: radius10,
+);
+final radius10 = BorderRadius.circular(10);
+final radius100 = BorderRadius.circular(100);
+final linearGradient = LinearGradient(
+  begin: Alignment.topLeft,
+  end: Alignment.bottomRight,
+  colors: [kWhiteColor.withOpacity(0.1), kWhiteColor.withAlpha(45)],
+  stops: const [0.3, 1],
+);
+const borderLinearGradient = LinearGradient(
+    begin: Alignment.bottomRight,
+    end: Alignment.topLeft,
+    colors: [kWhiteColor, kWhiteColor],
+    stops: [0.06, 0.95]);

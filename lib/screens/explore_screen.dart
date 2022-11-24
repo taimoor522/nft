@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:nft/constants.dart';
-import 'package:nft/screens/nft_screen.dart';
 import 'package:nft/widgets/appbar_images.dart';
 
 import '../models.dart';
@@ -44,7 +43,7 @@ class ExploreScreen extends StatelessWidget {
   }
 }
 
-class CustomListTile extends StatefulWidget {
+class CustomListTile extends StatelessWidget {
   final NFTCollection collection;
 
   const CustomListTile({
@@ -53,54 +52,19 @@ class CustomListTile extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  State<CustomListTile> createState() => _CustomListTileState();
-}
-
-class _CustomListTileState extends State<CustomListTile> with SingleTickerProviderStateMixin {
-  late final AnimationController controller;
-  @override
-  void initState() {
-    super.initState();
-    controller = AnimationController(
-      vsync: this,
-      duration: const Duration(seconds: 2),
-    );
-  }
-
-  @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {
-        Navigator.push(
-          context,
-          PageRouteBuilder(
-            transitionDuration: const Duration(seconds: 1),
-            transitionsBuilder: (context, animation, secondaryAnimation, child) {
-              animation = CurvedAnimation(parent: animation, curve: Curves.easeInOut);
-              return FadeTransition(
-                opacity: animation,
-                child: child,
-              );
-            },
-            pageBuilder: (_, __, ___) => NFTScreen(
-              collection: widget.collection,
-            ),
-          ),
-        );
-      },
+      onTap: () => pushNFTScreen(context, collection),
       child: Container(
         padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
         margin: const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(15),
-        ),
+        decoration: roundWhite,
         child: Row(
           children: [
             ClipRRect(
               borderRadius: BorderRadius.circular(15),
               child: Image(
-                image: AssetImage(widget.collection.cover),
+                image: AssetImage(collection.cover),
                 width: 70,
                 height: 70,
                 fit: BoxFit.cover,
@@ -111,27 +75,19 @@ class _CustomListTileState extends State<CustomListTile> with SingleTickerProvid
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  widget.collection.name,
-                  style: const TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                  ),
+                  collection.name,
+                  style: mediumTextStyle.copyWith(color: kBlackColor),
                 ),
                 Text(
-                  widget.collection.by,
-                  style: const TextStyle(
-                    fontSize: 13,
-                  ),
+                  collection.by,
+                  style: smallTextStyle.copyWith(color: kBlackColor),
                 ),
               ],
             ),
             const Spacer(),
             Text(
-              '${widget.collection.floorPrice.toString().padRight(4, '0')} ETH',
-              style: const TextStyle(
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
-              ),
+              '${collection.floorPrice.toString().padRight(4, '0')} ETH',
+              style: mediumTextStyle.copyWith(color: kBlackColor),
             ),
           ],
         ),
