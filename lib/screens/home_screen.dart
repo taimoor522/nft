@@ -14,10 +14,10 @@ class HomeScreen extends StatelessWidget {
         child: Scaffold(
           body: Column(
             children: [
-              RotatedListview(nfts: nftCollection[0].nft?.sublist(0, 5)),
-              RotatedListview(nfts: nftCollection[1].nft?.sublist(0, 4)),
-              RotatedListview(nfts: nftCollection[2].nft?.sublist(0, 5)),
-              RotatedListview(nfts: nftCollection[3].nft?.sublist(0, 4)),
+              RotatedListview(nfts: nftCollection[0].nft),
+              RotatedListview(nfts: nftCollection[1].nft),
+              RotatedListview(nfts: nftCollection[2].nft),
+              RotatedListview(nfts: nftCollection[3].nft),
               const Spacer(),
               SizedBox(
                 width: 250,

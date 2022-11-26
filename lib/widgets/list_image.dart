@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:nft/screens/place_bid_screen.dart';
+import 'package:nft/constants.dart';
 
 import '../models.dart';
 
@@ -10,14 +10,7 @@ class ListImage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => PlaceBidScreen(nft: nft),
-          ),
-        );
-      },
+      onTap: () => pushBidScreen(context, nft),
       child: Hero(
         tag: nft.price,
         child: Container(
@@ -29,7 +22,7 @@ class ListImage extends StatelessWidget {
               image: AssetImage(nft.image),
               fit: BoxFit.cover,
             ),
-            borderRadius: BorderRadius.circular(10),
+            borderRadius: radius10,
           ),
         ),
       ),
