@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 
 class AppbarImages extends StatelessWidget {
-  const AppbarImages({
-    Key? key,
-  }) : super(key: key);
+  const AppbarImages({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -13,6 +11,7 @@ class AppbarImages extends StatelessWidget {
         AppbarImage(image: 'assets/7.png'),
         AppbarImage(image: 'assets/10.png'),
         AppbarImage(image: 'assets/17.png'),
+      
       ],
     );
   }
@@ -20,17 +19,14 @@ class AppbarImages extends StatelessWidget {
 
 class AppbarImage extends StatelessWidget {
   final String image;
-  const AppbarImage({
-    Key? key,
-    required this.image,
-  }) : super(key: key);
+  const AppbarImage({super.key, required this.image});
 
   @override
   Widget build(BuildContext context) {
     return Image(
       image: AssetImage(image),
       width: MediaQuery.of(context).size.width / 4,
-      height: double.infinity,
+      height:  double.infinity,
       fit: BoxFit.cover,
     );
   }

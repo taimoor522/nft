@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:nft/screens/bid_screen.dart';
 import 'package:nft/screens/nft_screen.dart';
-import 'package:nft/screens/place_bid_screen.dart';
 
 import 'Screens/explore_screen.dart';
 import 'models.dart';
@@ -81,7 +81,7 @@ const List<NFTCollection> nftCollection = [
         image: 'assets/3.png',
       ),
       NFT(
-        price: 0.94,
+        price: 0.95,
         image: 'assets/4.png',
       ),
       NFT(
@@ -280,14 +280,8 @@ void pushBidScreen(BuildContext context, NFT nft) {
   Navigator.push(
     context,
     PageRouteBuilder(
-      pageBuilder: (context, animation, secondaryAnimation) => PlaceBidScreen(nft: nft),
+      pageBuilder: (context, animation, secondaryAnimation) => BidScreen(nft: nft),
       transitionDuration: const Duration(seconds: 1),
-      transitionsBuilder: (context, animation, secondaryAnimation, child) {
-        return FadeTransition(
-          opacity: animation,
-          child: child,
-        );
-      },
     ),
   );
 }

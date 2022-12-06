@@ -17,12 +17,12 @@ class ListImage extends StatelessWidget {
           width: 100,
           height: 100,
           margin: const EdgeInsets.all(5),
-          decoration: BoxDecoration(
-            image: DecorationImage(
+          child: ClipRRect(
+            borderRadius: radius10,
+            child: Image(
               image: AssetImage(nft.image),
               fit: BoxFit.cover,
             ),
-            borderRadius: radius10,
           ),
         ),
       ),

@@ -1,15 +1,13 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:nft/models.dart';
 import 'package:nft/widgets/list_image.dart';
 
+import '../models.dart';
+
 class RotatedListview extends StatefulWidget {
-  final List<NFT>? nfts;
-  const RotatedListview({
-    Key? key,
-    required this.nfts,
-  }) : super(key: key);
+  final List<NFT>? nft;
+  const RotatedListview({super.key, required this.nft});
 
   @override
   State<RotatedListview> createState() => _RotatedListviewState();
@@ -21,8 +19,12 @@ class _RotatedListviewState extends State<RotatedListview> {
   @override
   void initState() {
     super.initState();
+    for (var element in widget.nft!) {
+      debugPrint('LOG : ${element.price}');
+    }
+    debugPrint('\n');
     _scrollController = ScrollController(initialScrollOffset: 2);
-    WidgetsBinding.instance.addPostFrameCallback((_) {
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       _scrollController.animateTo(
         _scrollController.position.maxScrollExtent,
         duration: Duration(seconds: Random().nextInt(5) + 5),
@@ -38,16 +40,12 @@ class _RotatedListviewState extends State<RotatedListview> {
       child: Transform.rotate(
         angle: -0.2,
         child: ListView(
-          scrollDirection: Axis.horizontal,
           clipBehavior: Clip.none,
-          itemExtent: 100,
           controller: _scrollController,
-          physics: const BouncingScrollPhysics(),
-          children: widget.nfts!
-              .map((nft) => ListImage(
-                    nft: nft,
-                  ))
-              .toList(),
+          scrollDirection: Axis.horizontal,
+          children: widget.nft!.map((nft) {
+            return ListImage(nft: nft);
+          }).toList(),
         ),
       ),
     );

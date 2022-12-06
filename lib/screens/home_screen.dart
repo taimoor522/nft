@@ -14,10 +14,10 @@ class HomeScreen extends StatelessWidget {
         child: Scaffold(
           body: Column(
             children: [
-              RotatedListview(nfts: nftCollection[0].nft),
-              RotatedListview(nfts: nftCollection[1].nft),
-              RotatedListview(nfts: nftCollection[2].nft),
-              RotatedListview(nfts: nftCollection[3].nft),
+              RotatedListview(nft: nftCollection[0].nft?.sublist(0, 5)),
+              RotatedListview(nft: nftCollection[1].nft?.sublist(0, 4)),
+              RotatedListview(nft: nftCollection[2].nft?.sublist(0, 5)),
+              RotatedListview(nft: nftCollection[3].nft?.sublist(0, 4)),
               const Spacer(),
               SizedBox(
                 width: 250,
@@ -29,7 +29,7 @@ class HomeScreen extends StatelessWidget {
               ),
               const SizedBox(height: 15),
               SizedBox(
-                width: 280,
+                width: 300,
                 child: Text(
                   homeDiscriptionText,
                   textAlign: TextAlign.center,
@@ -37,11 +37,12 @@ class HomeScreen extends StatelessWidget {
                 ),
               ),
               SlideToContinue(
-                text: 'Start Exploring',
                 backgroundColor: kPinkColor,
                 foregroundColor: kWhiteColor,
+                text: 'Slide to Continue',
                 onConfirm: () => pushExploreScreen(context),
               ),
+              const SizedBox(height: 15),
             ],
           ),
         ),

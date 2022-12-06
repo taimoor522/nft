@@ -1,16 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:glassmorphism/glassmorphism.dart';
+import 'package:nft/constants.dart';
 
-import '../constants.dart';
 import '../models.dart';
 
 class NFTCardWidget extends StatelessWidget {
-  const NFTCardWidget({
-    Key? key,
-    required this.nft,
-  }) : super(key: key);
-
   final NFT nft;
+  const NFTCardWidget({super.key, required this.nft});
 
   @override
   Widget build(BuildContext context) {
@@ -20,8 +16,8 @@ class NFTCardWidget extends StatelessWidget {
         tag: nft.price,
         child: Container(
           height: 180,
-          margin: const EdgeInsets.all(10),
           padding: const EdgeInsets.all(5),
+          margin: const EdgeInsets.all(10),
           decoration: BoxDecoration(
             image: DecorationImage(
               image: AssetImage(nft.image),
@@ -41,7 +37,7 @@ class NFTCardWidget extends StatelessWidget {
               borderGradient: borderLinearGradient,
               child: Center(
                 child: Text(
-                  '${nft.price.toString().padRight(4, '0')} ETH',
+                  nft.price.toString(),
                   style: mediumTextStyle,
                 ),
               ),
